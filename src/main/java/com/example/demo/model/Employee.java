@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class Employee {
 	
-	private String id;
+	private Long id;
 	private String name;
 	private long salary;
 	
-	public Employee(String id, String name, long salary) {
+	public Employee(Long id, String name, long salary) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.salary = salary;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
