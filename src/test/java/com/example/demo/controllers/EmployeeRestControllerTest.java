@@ -1,12 +1,13 @@
 package com.example.demo.controllers;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static java.util.Arrays.asList;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,5 +53,27 @@ class EmployeeRestControllerTest {
 			.andExpect(jsonPath("$[1].id",is(2)))
 			.andExpect(jsonPath("$[1].name",is("second")))
 			.andExpect(jsonPath("$[1].salary",is(3000)));
+	}
+	
+	@Test
+	void test_oneEmployeeById_withExistingEmployee() throws Exception {
+		when(employeeService.getEmployeeById(anyLong()))
+			.thenReturn(new Employee(1L, "first",1000));
+		
+		mvc.perform(get("/api/employees/1").accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.id", is(1)))
+			.andExpect(jsonPath("$.salary", is(1000)))
+			.andExpect(jsonPath("$.name", is("first")));
+	}
+	
+	@Test
+	void test_oneEmployeeById_withoutExistingEmployee() throws Exception {
+		when(employeeService.getEmployeeById(anyLong()))
+			.thenReturn(null);
+		
+		mvc.perform(get("/api/employees/1").accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().string(""));
 	}
 }

@@ -12,4 +12,8 @@ public class EmployeeService {
 		throw new UnsupportedOperationException(TEMP_IMPLEMENTANTION);
 	}
 
+	public Employee getEmployeeById(long anyLong) {
+		throw new UnsupportedOperationException(TEMP_IMPLEMENTANTION);
+	}
+
 }
