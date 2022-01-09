@@ -73,7 +73,6 @@ class EmployeeRestControllerTest {
 			.thenReturn(null);
 		
 		mvc.perform(get("/api/employees/1").accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(content().string(""));
+			.andExpect(status().isNotFound());
 	}
 }
