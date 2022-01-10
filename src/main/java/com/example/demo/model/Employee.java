@@ -8,6 +8,10 @@ public class Employee {
 	private String name;
 	private long salary;
 	
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Employee(Long id, String name, long salary) {
 		super();
 		this.id = id;

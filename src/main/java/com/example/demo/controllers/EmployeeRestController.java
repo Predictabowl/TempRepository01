@@ -6,6 +6,8 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,10 +28,15 @@ public class EmployeeRestController {
 	}
 	
 	@GetMapping("/{id}")
-	public Employee oneEmployee(@PathVariable long id) throws ResourceNotFoundException {
+	public Employee oneEmployee(@PathVariable long id){
 		Employee employeeById = employeeService.getEmployeeById(id);
 		if (Objects.isNull(employeeById))
 			throw new ResourceNotFoundException();
 		return employeeById;
+	}
+	
+	@PostMapping("/new")
+	public Employee newEmployee(@RequestBody Employee employee) {
+		return employeeService.insertNewEmployee(employee);
 	}
 }

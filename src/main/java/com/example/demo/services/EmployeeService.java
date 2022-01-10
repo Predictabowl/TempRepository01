@@ -16,4 +16,8 @@ public class EmployeeService {
 		throw new UnsupportedOperationException(TEMP_IMPLEMENTANTION);
 	}
 
+	public Employee insertNewEmployee(Employee requestBodyEmployee) {
+		throw new UnsupportedOperationException(TEMP_IMPLEMENTANTION);
+	}
+
 }
