@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,6 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.model.Employee;
 import com.example.demo.services.EmployeeService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = EmployeeRestController.class)
 @ExtendWith(SpringExtension.class)
@@ -74,5 +78,41 @@ class EmployeeRestControllerTest {
 		
 		mvc.perform(get("/api/employees/1").accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotFound());
+	}
+	
+	@Test
+	void test_postEmployee() throws JsonProcessingException, Exception {
+		Employee newEmployee = new Employee(null, "new", 1100);
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		when(employeeService.insertNewEmployee(newEmployee))
+			.thenReturn(new Employee(1L, "new", 1100));
+		
+		mvc.perform(post("/api/employees/new")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(newEmployee)))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.id", is(1)))
+			.andExpect(jsonPath("$.name", is("new")))
+			.andExpect(jsonPath("$.salary", is(1100)));
+	}
+	
+	@Test
+	void test_updateEmployee() throws JsonProcessingException, Exception {
+		Employee requestBody = new Employee(null, "updated", 1200);
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		when(employeeService.updateEmployeeById(2L, requestBody))
+			.thenReturn(new Employee(2L, "updated", 1200));
+		
+		mvc.perform(put("/api/employees/update/2")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(requestBody)))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.id", is(2)))
+			.andExpect(jsonPath("$.name", is("updated")))
+			.andExpect(jsonPath("$.salary", is(1200)));
 	}
 }

@@ -72,4 +72,24 @@ public class EmployeeRestControllerRestAssuredTest {
 				"name", equalTo("test"),
 				"salary", equalTo(1000));
 	}
+	
+	@Test
+	void test_updateEmployee() {
+		Employee requestBodyEmployee = new Employee(null, "test", 1200);
+		
+		when(employeeService.updateEmployeeById(1L, requestBodyEmployee))
+			.thenReturn(new Employee(1L, "test", 1200));
+		
+		given()
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+			.body(requestBodyEmployee)
+		.when()
+			.put("/api/employees/update/1")
+		.then()
+			.statusCode(200)
+			.body(
+					"id", equalTo(1),
+					"name", equalTo("test"),
+					"salary", equalTo(1200));
+	}
 }
