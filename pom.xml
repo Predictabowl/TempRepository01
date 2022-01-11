@@ -49,6 +49,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.htmlunit</groupId>
+			<artifactId>htmlunit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -89,7 +94,7 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -110,7 +115,7 @@
 						</execution>
 					</executions>
 				</plugin>
-			</plugins>	
+			</plugins>
 		</pluginManagement>
 	</build>
 
