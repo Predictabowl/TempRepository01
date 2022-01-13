@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+<link rel="stylesheet"
+	href="webjars/foundation-sites/dist/css/foundation.min.css" />
+<script src="webjars/foundation-sites/dist/js/foundation.min.js"></script>
 <meta charset="UTF-8">
 <title>Employees</title>
 </head>
 <body>
-	<h1>Edit Employee</h1>
+	<h2>Edit Employee</h2>
 	<div>
 		<span th:text="${message}"></span>
 	</div>
@@ -13,12 +16,12 @@
 	<div th:if="${message.empty}">
 		<form name="employee_form" action="#" th:action="@{/save}"
 			th:object="${employee}" method="post">
-			<input type="hidden" th:field="*{id}"/>
+			<input type="hidden" th:field="*{id}" />
 			<p>
-				Name: <input type="text" th:field="*{name}"/>
+				Name: <input type="text" th:field="*{name}" />
 			</p>
 			<p>
-				Salary: <input type="text" th:field="*{salary}"/>
+				Salary: <input type="text" th:field="*{salary}" />
 			</p>
 			<button type="submit" name="btn_submit">Save</button>
 		</form>

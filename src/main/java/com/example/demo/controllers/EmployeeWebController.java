@@ -52,4 +52,9 @@ public class EmployeeWebController {
 			employeeService.updateEmployeeById(id, employee);
 		return "redirect:/";
 	}
+	
+	@GetMapping("/testpage")
+	public String testPage() {
+		return "foundation_test";
+	}
 }
