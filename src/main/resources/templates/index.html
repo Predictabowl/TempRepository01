@@ -5,16 +5,20 @@
 <title>Employees</title>
 </head>
 <body>
+	<div>
+		<a th:href="@{/new}">New employee</a>
+	</div>
 	<div th:if="${employees.empty}">
 		<div>No employee</div>
 	</div>
 	<div th:unless="${employees.empty}">
 		<table id="employee_table">
+			<caption>Registered employees</caption>
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Salary</th>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Salary</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,6 +26,7 @@
 					<td th:text="${employee.id}"></td>
 					<td th:text="${employee.name}"></td>
 					<td th:text="${employee.salary}"></td>
+					<td><a th:href="@{/edit/{id}(id=${employee.id})}">Edit</a></td>
 				</tr>
 			</tbody>
 		</table>

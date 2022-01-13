@@ -65,8 +65,10 @@ public class EmployeeWebControllerHtmlUnitTest {
 			.doesNotContain("No employee");
 		assertThat(table.asNormalizedText())
 			.contains("ID	Name	Salary")
-			.contains("1	first	1000")
-			.contains("2	second	2000");
+			.contains("1	first	1000	Edit")
+			.contains("2	second	2000	Edit");
+		page.getAnchorByHref("/edit/1");
+		page.getAnchorByHref("/edit/2");
 	}
 	
 	@Test
@@ -112,5 +114,13 @@ public class EmployeeWebControllerHtmlUnitTest {
 		form.getButtonByName("btn_submit").click();
 		
 		verify(employeeService).insertNewEmployee(new Employee(null, "new name", 1300));
+	}
+	
+	@Test
+	void test_homePage_shouldProvideLinkForCreatingNewEmployee() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		HtmlPage page = webClient.getPage("/");
+		
+		assertThat(page.getAnchorByText("New employee").getHrefAttribute())
+			.isEqualTo("/new");
 	}
 }
