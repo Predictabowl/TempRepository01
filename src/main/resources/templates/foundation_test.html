@@ -12,6 +12,7 @@
 <script src="/webjars/foundation-sites/dist/js/foundation.min.js"></script>
 <link rel="stylesheet"
 	href="/webjars/foundation-sites/dist/css/foundation.min.css" />
+<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/> 
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,7 +27,13 @@
 			<li>
 				<a href="#">Item 1</a>
 				<ul class="menu">
-					<li><a href="#">1a</a></li>
+					<li><a href="#">1a</a>
+						<ul class="menu">
+							<li><a href="#">1a-1</a></li>
+							<li><a href="#">1a-2</a></li>
+						</ul>
+					</li>
+					<li><a href="#">1b</a></li>
 				</ul>
 			</li>
 			<li><a href="#">Item 2</a></li>
