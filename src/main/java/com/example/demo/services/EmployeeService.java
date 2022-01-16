@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.jpa.repositories.EmployeeRepository;
 import com.example.demo.model.Employee;
-import com.example.demo.repositories.EmployeeRepository;
 
 @Service
 public class EmployeeService {

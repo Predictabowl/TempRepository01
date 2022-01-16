@@ -1,9 +1,12 @@
 package com.example.demo.services;
 
-import static org.mockito.ArgumentMatchers.*;
+import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
@@ -14,12 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.CoreMatchers.any;
-
+import com.example.demo.jpa.repositories.EmployeeRepository;
 import com.example.demo.model.Employee;
-import com.example.demo.repositories.EmployeeRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceWithMockitoTest {
