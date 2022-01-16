@@ -12,9 +12,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-learning03</name>
 	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>11</java.version>
+		<sonar.organization>predictabowl</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
