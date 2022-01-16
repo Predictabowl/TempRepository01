@@ -1,12 +1,11 @@
 package com.example.demo.controllers;
 
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.*;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +20,7 @@ import com.example.demo.services.EmployeeService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 @ExtendWith(MockitoExtension.class)
-public class EmployeeRestControllerRestAssuredTest {
+class EmployeeRestControllerRestAssuredTest {
 
 	@Mock
 	private EmployeeService employeeService;

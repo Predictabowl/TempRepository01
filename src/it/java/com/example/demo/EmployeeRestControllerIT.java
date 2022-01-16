@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -19,7 +19,6 @@ import com.example.demo.model.Employee;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import net.bytebuddy.NamingStrategy.SuffixingRandom.BaseNameResolver.ForGivenType;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -47,8 +46,8 @@ class EmployeeRestControllerIT {
 		
 		Employee saved = response.getBody().as(Employee.class);
 		
-		assertThat(employeeRepository.findById(saved.getId()).get())
-			.isEqualTo(saved);
+		assertThat(employeeRepository.findById(saved.getId()))
+			.contains(saved);
 	}
 	
 	@Test

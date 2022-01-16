@@ -37,7 +37,7 @@ class EmployeeServiceRepositoryIT {
 		Employee modified = employeeService.updateEmployeeById(saved.getId(),
 				new Employee(saved.getId(), "modified", 2000));
 		
-		assertThat(employeeRepository.findById(saved.getId()).get())
-			.isEqualTo(modified);
+		assertThat(employeeRepository.findById(saved.getId()))
+			.contains(modified);
 	}
 }

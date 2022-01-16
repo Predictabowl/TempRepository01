@@ -23,7 +23,7 @@ import com.example.demo.model.Employee;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = EmployeeService.class)
-public class EmployeeServiceWithMockBeanTest {
+class EmployeeServiceWithMockBeanTest {
 
 	@MockBean
 	private EmployeeRepository employeeRepository;
@@ -32,7 +32,7 @@ public class EmployeeServiceWithMockBeanTest {
 	private EmployeeService employeeService;
 	
 	@Test
-	public void test_getAllEmployees() {
+	void test_getAllEmployees() {
 		Employee employee1 = new Employee(1L, "first", 1000);
 		Employee employee2 = new Employee(2L, "second", 5000);
 
@@ -42,7 +42,7 @@ public class EmployeeServiceWithMockBeanTest {
 	}
 
 	@Test
-	public void test_getEmployeeById_found() {
+	void test_getEmployeeById_found() {
 		Employee employee = new Employee(1L, "test", 1000);
 
 		when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
@@ -51,14 +51,14 @@ public class EmployeeServiceWithMockBeanTest {
 	}
 
 	@Test
-	public void test_getEmployeeById_notFound() {
+	void test_getEmployeeById_notFound() {
 		when(employeeRepository.findById(anyLong())).thenReturn(Optional.empty());
 
 		assertThat(employeeService.getEmployeeById(1L)).isNull();
 	}
 
 	@Test
-	public void test_insertNewEmployee_setsIdToNull_and_returnSavedEmployee() {
+	void test_insertNewEmployee_setsIdToNull_and_returnSavedEmployee() {
 		Employee toSave = spy(new Employee(99L, "", 0));
 		Employee saved = new Employee(1L, "saved", 1000);
 		
@@ -74,7 +74,7 @@ public class EmployeeServiceWithMockBeanTest {
 	}
 	
 	@Test
-	public void test_updateEmployeeById_setsIdToArgument_and_returnsAvedEmployee() {
+	void test_updateEmployeeById_setsIdToArgument_and_returnsAvedEmployee() {
 		Employee replacement = spy(new Employee(null, "employee", 0));
 		Employee replaced = new Employee(1L, "saved", 1000);
 		

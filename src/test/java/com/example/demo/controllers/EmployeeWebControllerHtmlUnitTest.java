@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +27,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTable;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = EmployeeWebController.class)
-public class EmployeeWebControllerHtmlUnitTest {
+class EmployeeWebControllerHtmlUnitTest {
 
 	@Autowired
 	private WebClient webClient;
