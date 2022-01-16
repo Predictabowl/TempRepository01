@@ -16,7 +16,6 @@ public class Employee {
 	private long salary;
 	
 	public Employee() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Employee(Long id, String name, long salary) {
