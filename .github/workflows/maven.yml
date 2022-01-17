@@ -34,10 +34,13 @@ jobs:
              path: ~/.m2
              key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml', '**/*.yml') }}
              restore-keys: ${{ runner.os }}-m2   
-         - name: Build with Maven
+         - name: Build with Maven (unit and integration tests)
            env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-           run: 
-              - mvn --batch-mode --update-snapshots verify sonar:sonar -Dsonar.projectKey=Predictabowl_TempRepository01
-              - xvfb-run mvn --batch-mode --update-snapshots verify -Pskip-tests,e2e-tests
+           run: mvn --batch-mode --update-snapshots verify sonar:sonar -Dsonar.projectKey=Predictabowl_TempRepository01
+         - name: Build with Maven (e2e tests)
+           env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           run: xvfb-run mvn --batch-mode -Pskip-tests,e2e-tests
+              
