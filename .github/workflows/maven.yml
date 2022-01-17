@@ -42,5 +42,5 @@ jobs:
          - name: Build with Maven (e2e tests)
            env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           run: xvfb-run mvn --batch-mode -Pskip-tests,e2e-tests
+           run: xvfb-run mvn --batch-mode verify -Pskip-tests,e2e-tests
               
