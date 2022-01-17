@@ -17,6 +17,9 @@
 		<java.version>11</java.version>
 		<sonar.organization>predictabowl</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S3577</sonar.issue.ignore.multicriteria.e1.ruleKey>
+		<sonar.issue.ignore.multicriteria.e1.resourceKey>**/EmployeeWebControllerE2E.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
 	</properties>
 
 	<dependencies>
