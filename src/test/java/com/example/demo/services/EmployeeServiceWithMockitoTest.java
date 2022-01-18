@@ -10,15 +10,17 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import com.example.demo.jpa.repositories.EmployeeRepository;
 import com.example.demo.model.Employee;
+import com.example.demo.model.dto.EmployeeDTO;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceWithMockitoTest {
@@ -26,8 +28,14 @@ class EmployeeServiceWithMockitoTest {
 	@Mock
 	private EmployeeRepository employeeRepository;
 
-	@InjectMocks
-	private EmployeeService employeeService;
+	private EmployeeService employeeService;	
+	private ModelMapper mapper;
+	
+	@BeforeEach
+	void setUp() {
+		mapper = new ModelMapper();
+		employeeService = new EmployeeService(employeeRepository, mapper);
+	}
 
 	@Test
 	void test_getAllEmployees() {
@@ -57,7 +65,7 @@ class EmployeeServiceWithMockitoTest {
 
 	@Test
 	void test_insertNewEmployee_setsIdToNull_and_returnSavedEmployee() {
-		Employee toSave = spy(new Employee(99L, "", 0));
+		EmployeeDTO toSave = spy(new EmployeeDTO(99L, "", 0));
 		Employee saved = new Employee(1L, "saved", 1000);
 		
 		when(employeeRepository.save(isA(Employee.class))).thenReturn(saved);
@@ -68,12 +76,12 @@ class EmployeeServiceWithMockitoTest {
 		
 		InOrder inOrder = inOrder(toSave,employeeRepository);
 		inOrder.verify(toSave).setId(null);
-		inOrder.verify(employeeRepository).save(toSave);
+		inOrder.verify(employeeRepository).save(new Employee(null, "", 0));
 	}
 	
 	@Test
 	void test_updateEmployeeById_setsIdToArgument_and_returnsAvedEmployee() {
-		Employee replacement = spy(new Employee(null, "employee", 0));
+		EmployeeDTO replacement = spy(new EmployeeDTO(null, "employee", 0));
 		Employee replaced = new Employee(1L, "saved", 1000);
 		
 		when(employeeRepository.save(isA(Employee.class))).thenReturn(replaced);
@@ -84,6 +92,6 @@ class EmployeeServiceWithMockitoTest {
 		
 		InOrder inOrder = inOrder(replacement,employeeRepository);
 		inOrder.verify(replacement).setId(1L);
-		inOrder.verify(employeeRepository).save(replacement);
+		inOrder.verify(employeeRepository).save(new Employee(1L, "employee", 0));
 	}
 }

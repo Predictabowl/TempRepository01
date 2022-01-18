@@ -24,6 +24,7 @@ import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
 
 @ExtendWith(SpringExtension.class)
@@ -114,7 +115,7 @@ class EmployeeWebControllerTest {
 				.param("salary", "1000"))
 			.andExpect(view().name("redirect:/"));
 		
-		verify(employeeService).insertNewEmployee(new Employee(null,"test name",1000));
+		verify(employeeService).insertNewEmployee(new EmployeeDTO(null,"test name",1000));
 	}
 
 	@Test
@@ -125,7 +126,7 @@ class EmployeeWebControllerTest {
 				.param("salary", "1250"))
 			.andExpect(view().name("redirect:/"));
 		
-		verify(employeeService).updateEmployeeById(1L, new Employee(1L,"edited",1250));
+		verify(employeeService).updateEmployeeById(1L, new EmployeeDTO(1L,"edited",1250));
 	}
 	
 }

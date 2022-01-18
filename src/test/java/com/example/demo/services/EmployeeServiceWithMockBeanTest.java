@@ -13,6 +13,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,9 +21,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.example.demo.jpa.repositories.EmployeeRepository;
 import com.example.demo.model.Employee;
+import com.example.demo.model.dto.EmployeeDTO;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = EmployeeService.class)
+@ContextConfiguration(classes = {EmployeeService.class, ModelMapper.class})
 class EmployeeServiceWithMockBeanTest {
 
 	@MockBean
@@ -59,7 +61,7 @@ class EmployeeServiceWithMockBeanTest {
 
 	@Test
 	void test_insertNewEmployee_setsIdToNull_and_returnSavedEmployee() {
-		Employee toSave = spy(new Employee(99L, "", 0));
+		EmployeeDTO toSave = spy(new EmployeeDTO(99L, "", 0));
 		Employee saved = new Employee(1L, "saved", 1000);
 		
 		when(employeeRepository.save(isA(Employee.class))).thenReturn(saved);
@@ -70,12 +72,12 @@ class EmployeeServiceWithMockBeanTest {
 		
 		InOrder inOrder = inOrder(toSave,employeeRepository);
 		inOrder.verify(toSave).setId(null);
-		inOrder.verify(employeeRepository).save(toSave);
+		inOrder.verify(employeeRepository).save(new Employee(null, "", 0));
 	}
 	
 	@Test
 	void test_updateEmployeeById_setsIdToArgument_and_returnsAvedEmployee() {
-		Employee replacement = spy(new Employee(null, "employee", 0));
+		EmployeeDTO replacement = spy(new EmployeeDTO(null, "employee", 0));
 		Employee replaced = new Employee(1L, "saved", 1000);
 		
 		when(employeeRepository.save(isA(Employee.class))).thenReturn(replaced);
@@ -86,6 +88,6 @@ class EmployeeServiceWithMockBeanTest {
 		
 		InOrder inOrder = inOrder(replacement,employeeRepository);
 		inOrder.verify(replacement).setId(1L);
-		inOrder.verify(employeeRepository).save(replacement);
+		inOrder.verify(employeeRepository).save(new Employee(1L, "employee", 0));
 	}
 }

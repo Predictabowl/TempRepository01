@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -54,7 +55,7 @@ class EmployeeRestControllerRestAssuredTest {
 	
 	@Test
 	void test_postEmployee(){
-		Employee requestBodyEmployee = new Employee(null, "test", 1000);
+		EmployeeDTO requestBodyEmployee = new EmployeeDTO(null, "test", 1000);
 		
 		when(employeeService.insertNewEmployee(requestBodyEmployee))
 			.thenReturn(new Employee(1L, "test", 1000));
@@ -74,7 +75,7 @@ class EmployeeRestControllerRestAssuredTest {
 	
 	@Test
 	void test_updateEmployee() {
-		Employee requestBodyEmployee = new Employee(null, "test", 1200);
+		EmployeeDTO requestBodyEmployee = new EmployeeDTO(null, "test", 1200);
 		
 		when(employeeService.updateEmployeeById(1L, requestBodyEmployee))
 			.thenReturn(new Employee(1L, "test", 1200));
