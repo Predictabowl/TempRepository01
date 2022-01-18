@@ -16,7 +16,7 @@ import com.example.demo.model.Employee;
 
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-public class EmployeeRepositoryTest {
+class EmployeeRepositoryTest {
 	
 	@Autowired
 	private EmployeeRepository repository;

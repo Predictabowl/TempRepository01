@@ -3,10 +3,10 @@ name: Java_CI_E2E
 on: 
    push:
       branches: 
-      - "**"
+      - master
    pull_request:
       branches:
-      - "**"
+      - master
 
 jobs:
    build:
