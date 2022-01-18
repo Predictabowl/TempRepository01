@@ -21,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,7 +83,7 @@ class EmployeeRestControllerTest {
 	
 	@Test
 	void test_postEmployee() throws JsonProcessingException, Exception {
-		Employee newEmployee = new Employee(null, "new", 1100);
+		EmployeeDTO newEmployee = new EmployeeDTO(null, "new", 1100);
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		when(employeeService.insertNewEmployee(newEmployee))
@@ -100,7 +101,7 @@ class EmployeeRestControllerTest {
 	
 	@Test
 	void test_updateEmployee() throws JsonProcessingException, Exception {
-		Employee requestBody = new Employee(null, "updated", 1200);
+		EmployeeDTO requestBody = new EmployeeDTO(null, "updated", 1200);
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		when(employeeService.updateEmployeeById(2L, requestBody))

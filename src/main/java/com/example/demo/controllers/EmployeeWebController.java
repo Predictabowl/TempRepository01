@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
 
 @Controller
@@ -44,7 +45,7 @@ public class EmployeeWebController {
 	}
 	
 	@PostMapping("/save")
-	public String saveEmployee(Employee employee) {
+	public String saveEmployee(EmployeeDTO employee) {
 		Long id = employee.getId();
 		if (Objects.isNull(id))
 			employeeService.insertNewEmployee(employee);

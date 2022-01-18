@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.model.Employee;
+import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
 
 @RestController
@@ -37,12 +38,12 @@ public class EmployeeRestController {
 	}
 	
 	@PostMapping("/new")
-	public Employee newEmployee(@RequestBody Employee employee) {
+	public Employee newEmployee(@RequestBody EmployeeDTO employee) {
 		return employeeService.insertNewEmployee(employee);
 	}
 	
 	@PutMapping("/update/{id}")
-	public Employee updateEmployee(@PathVariable long id, @RequestBody Employee employee) {
+	public Employee updateEmployee(@PathVariable long id, @RequestBody EmployeeDTO employee) {
 		return employeeService.updateEmployeeById(id, employee);
 	}
 }
