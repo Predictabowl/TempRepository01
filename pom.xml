@@ -20,6 +20,12 @@
 		<sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
 		<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S3577</sonar.issue.ignore.multicriteria.e1.ruleKey>
 		<sonar.issue.ignore.multicriteria.e1.resourceKey>**/EmployeeWebControllerE2E.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
+		<sonar.coverage.exclusions>
+			**/model/*.*,
+			**/dto/*.*,
+			**/exceptions/*.*,
+			**/SpringbootLearning03Application.*
+		</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
@@ -165,6 +171,9 @@
 					<version>0.8.7</version>
 					<configuration>
 						<excludes>
+							<exclude>**/model/*.*</exclude>
+							<exclude>**/dto/*.*</exclude>
+							<exclude>**/exceptions/*.*</exclude>
 							<exclude>**/SpringbootLearning03Application.*</exclude>
 						</excludes>
 					</configuration>
