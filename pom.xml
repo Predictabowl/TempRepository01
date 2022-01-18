@@ -22,10 +22,12 @@
 		<sonar.issue.ignore.multicriteria.e1.resourceKey>**/EmployeeWebControllerE2E.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
 		<sonar.coverage.exclusions>
 			**/model/*.*,
-			**/dto/*.*,
 			**/exceptions/*.*,
 			**/SpringbootLearning03Application.*
 		</sonar.coverage.exclusions>
+		<sonar.exclusions>
+			**/dto/*.*,
+		</sonar.exclusions>
 	</properties>
 
 	<dependencies>
