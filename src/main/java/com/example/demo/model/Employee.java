@@ -2,11 +2,21 @@ package com.example.demo.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Employee {
 	
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String name;
 	private long salary;
+	
+	public Employee() {
+	}
 	
 	public Employee(Long id, String name, long salary) {
 		super();

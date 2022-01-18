@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/css/main.css"/>
+<meta charset="UTF-8">
+<title>Employees</title>
+</head>
+<body>
+	<div class="m-4">
+		<a th:href="@{/new}">New employee</a>
+	</div>
+	<div th:if="${employees.empty}">
+		<div>No employee</div>
+	</div>
+	<div th:unless="${employees.empty}">
+		<table id="employee_table" class="table table-bordered table-hover table-striped">
+			<caption>Registered employees</caption>
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Salary</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee : ${employees}">
+					<td th:text="${employee.id}"></td>
+					<td th:text="${employee.name}"></td>
+					<td th:text="${employee.salary}"></td>
+					<td><a th:href="@{/edit/{id}(id=${employee.id})}">Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
