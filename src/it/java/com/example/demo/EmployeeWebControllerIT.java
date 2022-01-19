@@ -86,4 +86,14 @@ class EmployeeWebControllerIT {
 		assertThat(employeeRepository.findByName("modified employee").getSalary())
 			.isEqualTo(1500);
 	}
+	
+	@Test
+	void test_deleteEmployee() {
+		Employee testEmployee = employeeRepository.save(new Employee(null, "test employee", 1000));
+		Employee testEmployee2 = employeeRepository.save(new Employee(null, "test employee 2", 2000));
+		
+		webDriver.get(baseUrl+"/delete/"+testEmployee.getId());
+		
+		assertThat(employeeRepository.findAll()).containsExactly(testEmployee2);
+	}
 }

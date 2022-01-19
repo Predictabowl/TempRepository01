@@ -74,6 +74,18 @@ class EmployeeWebControllerE2E {
 			.contains("edited employee","2000")
 			.doesNotContain("employee to edit","3000");
 	}
+	
+	@Test
+	void test_deleteEmployee() throws JSONException {
+		String id = postEmployee("employee to delete", 2500);
+		
+		webDriver.get(baseUrl);
+		webDriver.findElement(By.cssSelector("a[href*='/delete/"+id+"']")).click();
+		
+		assertThat(webDriver.findElement(By.tagName("body")).getText())
+			.doesNotContain("employee to delete");
+		
+	}
 
 	private String postEmployee(String name, int salary) throws JSONException {
 		JSONObject body = new JSONObject();

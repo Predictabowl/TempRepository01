@@ -64,5 +64,18 @@ class EmployeeRestControllerIT {
 					"salary", equalTo(1200),
 					"name", equalTo("modified"));
 	}
+	
+	@Test
+	void test_deleteEmployee() {
+		Employee toBeDeleted = employeeRepository.save(new Employee(null, "someone", 1100));
+		
+		given()
+		.when()
+			.delete("/api/employees/delete/"+toBeDeleted.getId())
+		.then()
+			.statusCode(200);
+		
+		assertThat(employeeRepository.findAll()).isEmpty();
+	}
 
 }
