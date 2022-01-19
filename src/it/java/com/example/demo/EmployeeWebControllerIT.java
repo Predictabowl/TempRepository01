@@ -14,13 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.example.demo.config.TestProfiles;
 import com.example.demo.jpa.repositories.EmployeeRepository;
 import com.example.demo.model.Employee;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles(TestProfiles.NO_AUTH)
 class EmployeeWebControllerIT {
 
 	@Autowired

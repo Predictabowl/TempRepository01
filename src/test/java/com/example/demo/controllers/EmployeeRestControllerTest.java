@@ -3,7 +3,10 @@ package com.example.demo.controllers;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -13,21 +16,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.demo.config.TestProfiles;
 import com.example.demo.model.Employee;
 import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = EmployeeRestController.class)
+@WebMvcTest(controllers = {EmployeeRestController.class})
 @ExtendWith(SpringExtension.class)
+@ActiveProfiles(TestProfiles.NO_AUTH)
 class EmployeeRestControllerTest {
 
 	@Autowired
@@ -115,5 +123,31 @@ class EmployeeRestControllerTest {
 			.andExpect(jsonPath("$.id", is(2)))
 			.andExpect(jsonPath("$.name", is("updated")))
 			.andExpect(jsonPath("$.salary", is(1200)));
+	}
+	
+	@Test
+	void test_deleteEmployee_success() throws Exception {
+		when(employeeService.getEmployeeById(3L))
+			.thenReturn(new Employee());
+		
+		mvc.perform(delete("/api/employees/delete/3"))
+				.andExpect(status().isOk());
+		
+		InOrder inOrder = Mockito.inOrder(employeeService);
+		inOrder.verify(employeeService).getEmployeeById(3L);
+		inOrder.verify(employeeService).deleteEmployeeById(3L);
+		inOrder.verifyNoMoreInteractions();
+	}
+	
+	@Test
+	void test_deleteEmployee_whenEmployeeMissing() throws Exception {
+		when(employeeService.getEmployeeById(3L))
+			.thenReturn(null);
+		
+		mvc.perform(delete("/api/employees/delete/3"))
+				.andExpect(status().isNotFound());
+		
+		verify(employeeService).getEmployeeById(3L);
+		verifyNoMoreInteractions(employeeService);
 	}
 }
