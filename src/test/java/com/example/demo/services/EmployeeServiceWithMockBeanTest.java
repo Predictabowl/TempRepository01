@@ -4,8 +4,10 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -89,5 +91,14 @@ class EmployeeServiceWithMockBeanTest {
 		InOrder inOrder = inOrder(replacement,employeeRepository);
 		inOrder.verify(replacement).setId(1L);
 		inOrder.verify(employeeRepository).save(new Employee(1L, "employee", 0));
+	}
+	
+	@Test
+	void test_deleteEmployee() {
+		doNothing().when(employeeRepository).deleteById(2L);
+		
+		employeeService.deleteEmployeeById(2L);
+		
+		verify(employeeRepository).deleteById(2L);
 	}
 }

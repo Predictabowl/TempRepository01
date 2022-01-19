@@ -2,13 +2,16 @@ package com.example.demo.controllers;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -91,5 +94,39 @@ class EmployeeRestControllerRestAssuredTest {
 					"id", equalTo(1),
 					"name", equalTo("test"),
 					"salary", equalTo(1200));
+	}
+	
+	@Test
+	void test_deleteEmployee_success() {
+		when(employeeService.getEmployeeById(3L))
+			.thenReturn(new Employee());
+		
+		given()
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.when()
+			.delete("/api/employees/delete/3")
+		.then()
+			.statusCode(200);
+		
+		InOrder inOrder = inOrder(employeeService);
+		inOrder.verify(employeeService).getEmployeeById(3L);
+		inOrder.verify(employeeService).deleteEmployeeById(3L);
+		inOrder.verifyNoMoreInteractions();
+	}
+	
+	@Test
+	void test_deleteEmployee_whenEmployeeIsMissing() {
+		when(employeeService.getEmployeeById(2L))
+			.thenReturn(null);
+		
+		given()
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.when()
+			.delete("/api/employees/delete/2")
+		.then()
+			.statusCode(404);
+		
+		verify(employeeService).getEmployeeById(2L);
+		verifyNoMoreInteractions(employeeService);
 	}
 }
