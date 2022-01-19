@@ -40,4 +40,8 @@ public class EmployeeService {
 		Employee replacement = mapper.map(employee, Employee.class);
 		return employeeRepository.save(replacement);
 	}
+
+	public void deleteEmployeeById(long id) {
+		employeeRepository.deleteById(id);;
+	}
 }

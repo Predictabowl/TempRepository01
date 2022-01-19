@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,5 +46,13 @@ public class EmployeeRestController {
 	@PutMapping("/update/{id}")
 	public Employee updateEmployee(@PathVariable long id, @RequestBody EmployeeDTO employee) {
 		return employeeService.updateEmployeeById(id, employee);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public void deleteEmployee(@PathVariable long id) {
+		Employee employee = employeeService.getEmployeeById(id);
+		if(Objects.isNull(employee))
+			throw new ResourceNotFoundException();
+		employeeService.deleteEmployeeById(id);
 	}
 }

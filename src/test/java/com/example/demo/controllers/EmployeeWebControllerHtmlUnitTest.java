@@ -64,10 +64,12 @@ class EmployeeWebControllerHtmlUnitTest {
 			.doesNotContain("No employee");
 		assertThat(table.asNormalizedText())
 			.contains("ID	Name	Salary")
-			.contains("1	first	1000	Edit")
-			.contains("2	second	2000	Edit");
+			.contains("1	first	1000	Edit	Delete")
+			.contains("2	second	2000	Edit	Delete");
 		page.getAnchorByHref("/edit/1");
 		page.getAnchorByHref("/edit/2");
+		page.getAnchorByHref("/delete/1");
+		page.getAnchorByHref("/delete/2");
 	}
 	
 	@Test
@@ -122,4 +124,5 @@ class EmployeeWebControllerHtmlUnitTest {
 		assertThat(page.getAnchorByText("New employee").getHrefAttribute())
 			.isEqualTo("/new");
 	}
+	
 }

@@ -129,4 +129,11 @@ class EmployeeWebControllerTest {
 		verify(employeeService).updateEmployeeById(1L, new EmployeeDTO(1L,"edited",1250));
 	}
 	
+	@Test
+	void test_deleteEmployeeWithId_shouldDeleteExistingEmployee() throws Exception {
+		mvc.perform(get("/delete/2"))
+			.andExpect(view().name("redirect:/"));
+		
+		verify(employeeService).deleteEmployeeById(2L);
+	}
 }
