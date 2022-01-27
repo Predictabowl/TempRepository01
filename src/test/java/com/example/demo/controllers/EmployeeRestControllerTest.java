@@ -19,14 +19,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.demo.config.TestProfiles;
 import com.example.demo.model.Employee;
 import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
@@ -35,7 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = {EmployeeRestController.class})
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles(TestProfiles.NO_AUTH)
+@AutoConfigureMockMvc(addFilters = false) //this will disable security
 class EmployeeRestControllerTest {
 
 	@Autowired
@@ -69,7 +68,7 @@ class EmployeeRestControllerTest {
 	}
 	
 	@Test
-	void test_oneEmployeeById_withExistingEmployee() throws Exception {
+	void test_findEmployeeById_withExistingEmployee() throws Exception {
 		when(employeeService.getEmployeeById(anyLong()))
 			.thenReturn(new Employee(1L, "first",1000));
 		
@@ -81,7 +80,7 @@ class EmployeeRestControllerTest {
 	}
 	
 	@Test
-	void test_oneEmployeeById_withoutExistingEmployee() throws Exception {
+	void test_findEmployeeById_withoutExistingEmployee() throws Exception {
 		when(employeeService.getEmployeeById(anyLong()))
 			.thenReturn(null);
 		

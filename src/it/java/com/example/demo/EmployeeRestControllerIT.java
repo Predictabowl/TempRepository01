@@ -15,7 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.example.demo.config.TestProfiles;
+import com.example.demo.config.Profiles;
 import com.example.demo.jpa.repositories.EmployeeRepository;
 import com.example.demo.model.Employee;
 
@@ -24,7 +24,7 @@ import io.restassured.response.Response;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ActiveProfiles(TestProfiles.NO_AUTH)
+@ActiveProfiles(Profiles.NO_AUTH)
 class EmployeeRestControllerIT {
 	
 	@Autowired

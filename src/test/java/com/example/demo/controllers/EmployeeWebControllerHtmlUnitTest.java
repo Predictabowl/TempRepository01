@@ -13,12 +13,11 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.example.demo.config.TestProfiles;
 import com.example.demo.model.Employee;
 import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
@@ -30,7 +29,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTable;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = EmployeeWebController.class)
-@ActiveProfiles(TestProfiles.NO_AUTH)
+@AutoConfigureMockMvc(addFilters = false)
 class EmployeeWebControllerHtmlUnitTest {
 
 	@Autowired

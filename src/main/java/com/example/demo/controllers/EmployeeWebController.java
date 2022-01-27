@@ -61,8 +61,4 @@ public class EmployeeWebController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/test")
-	public String getTestPage() {
-		return "test_page";
-	}
 }

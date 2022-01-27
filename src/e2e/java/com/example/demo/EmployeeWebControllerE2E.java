@@ -38,6 +38,10 @@ class EmployeeWebControllerE2E {
 	@BeforeEach
 	void setUp() {
 		webDriver = new ChromeDriver();
+		webDriver.get(baseUrl);
+		webDriver.findElement(By.id("username")).sendKeys("admin");
+		webDriver.findElement(By.id("password")).sendKeys("password");
+		webDriver.findElement(By.tagName("button")).click();
 	}
 
 	@AfterEach
@@ -87,6 +91,11 @@ class EmployeeWebControllerE2E {
 		
 	}
 
+	@Test
+	void test_learning() throws JSONException {
+		String id = postEmployee("employee to learn", 2500);
+	}
+	
 	private String postEmployee(String name, int salary) throws JSONException {
 		JSONObject body = new JSONObject();
 		body.put("name", name);
@@ -94,9 +103,11 @@ class EmployeeWebControllerE2E {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setBasicAuth("admin", "password");
 		HttpEntity<String> entity = new HttpEntity<>(body.toString(), headers);
 
 		RestTemplate restTemplate = new RestTemplate();
+		LOGGER.debug("Entity :"+entity);
 		ResponseEntity<String> answer = restTemplate.postForEntity(baseUrl + "/api/employees/new", entity,
 				String.class);
 		LOGGER.debug("answer for rest POST: "+answer);

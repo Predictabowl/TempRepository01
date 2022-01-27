@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.example.demo.config.TestProfiles;
+import com.example.demo.config.Profiles;
 import com.example.demo.model.Employee;
 import com.example.demo.model.dto.EmployeeDTO;
 import com.example.demo.services.EmployeeService;
@@ -26,7 +26,7 @@ import com.example.demo.services.EmployeeService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 @ExtendWith(MockitoExtension.class)
-@ActiveProfiles(TestProfiles.NO_AUTH)
+@ActiveProfiles(Profiles.NO_AUTH)
 class EmployeeRestControllerRestAssuredTest {
 
 	@Mock
@@ -38,6 +38,7 @@ class EmployeeRestControllerRestAssuredTest {
 	@BeforeEach
 	void setup() {
 		RestAssuredMockMvc.standaloneSetup(employeeRestController);
+//		RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
 	}
 	
 	@Test

@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 
-<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="/css/main.css"/>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/main.css" />
 <meta charset="UTF-8">
 <title>Employees</title>
 </head>
@@ -15,7 +15,8 @@
 		<div>No employee</div>
 	</div>
 	<div th:unless="${employees.empty}">
-		<table id="employee_table" class="table table-bordered table-hover table-striped">
+		<table id="employee_table"
+			class="table table-bordered table-hover table-striped">
 			<caption>Registered employees</caption>
 			<thead>
 				<tr>
