@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 
-<link rel="stylesheet" href="/webjars/font-awesome/css/all.min.css" />
-<link rel="stylesheet" href="/webjars/bulma/css/bulma.min.css" />
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" href="/css/main.css" />
 <meta charset="UTF-8">
 <title>Employees</title>
 </head>
 <body>
-	<div th:insert="~{Fragments :: BNavbar}"></div>
+	<div th:insert="~{Fragments :: navbar}"></div>
 
 	<div class="m-4">
 		<form th:action="@{/new}" method="get">
@@ -44,7 +44,7 @@
 	</div>
 	<div class="mt-4">
 		<form th:action="@{/logout}" method="post">
-			<button type="submit" class="button rounded-lg">Logout</button>
+			<button type="submit" class="btn-warning rounded-lg">Logout</button>
 		</form>
 	</div>
 </body>
